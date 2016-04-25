@@ -1,0 +1,22 @@
+<script>
+var endpoint = 'https://android.googleapis.com/gcm/send';
+
+var oReq = new XMLHttpRequest();
+oReq.addEventListener("load", function() {
+
+});
+
+oReq.open("POST", endpoint);
+oReq.setRequestHeader('Authorization', 'key=AIzaSyCw6KeA-cBcPTBGgifS0Va0ygjQGaSLyHk');
+oReq.setRequestHeader('Content-Type', 'application/json');
+
+// oReq.send('{\"registration_ids\":[\"dvqu-AAI8fA:APA91bGxZHmDkeCRjCTzOWsi5GOQdHYz_UtX_uhJtr3dqQSSxPhj_SsYZ-enNqDDQszgpMYrCgVS4ha8i-xGAlJ7xli50Os5L2_H00ZwKaZs7hZj_kZl3SCLdHokb39DA5u2C3-7IdyI\"]}');
+
+oReq.send(JSON.stringify({
+	registration_ids: [decodeURIComponent(location.search.slice(1))],
+	data: {
+		message: 'HELLO WORLD!'
+	}
+}))
+
+</script>
