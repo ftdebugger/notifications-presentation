@@ -244,7 +244,7 @@ console.log('I am alive!');
 
 <script type="text/javascript">
     function swExample1(button) {
-        navigator.serviceWorker.register('/sw.js')
+        navigator.serviceWorker.register('/notifications-presentation/sw.js')
             .then(function(registration) {
                 button.textContent = 'Scope: ' + registration.scope;
             })
@@ -314,7 +314,7 @@ self.addEventListener('push', function(event) {
     function swExample2(button) {        
         Notification.requestPermission()
             .then(function() {
-                navigator.serviceWorker.register('/sw.js')
+                navigator.serviceWorker.register('/notifications-presentation/sw.js')
             })
             .then(function(registration) {
                 return navigator.serviceWorker.ready;
@@ -330,7 +330,7 @@ self.addEventListener('push', function(event) {
                     })
             })
             .then(function(subscription) {  
-                var url = location.origin + '/push.html?' + encodeURIComponent(subscription.endpoint.substr(40));
+                var url = location.origin + '/notifications-presentation/push.html?' + encodeURIComponent(subscription.endpoint.substr(40));
 
                 console.log(url);
 
