@@ -213,11 +213,25 @@ for (var i = 0; i < 5; i++) {
 
 ![placeholder](pictures/sw-lifecycle.png){:.h400}
 
+## Push API overview
+
+![placeholder](pictures/PushNotificationsHighLevel.png){:.h400}
+
+## Push API overview
+
+![placeholder](pictures/push-messaging-states-diagram-ux.png){:.h400}
+
 ## Step 1. Check caniuse.com
 
 ![placeholder](pictures/support-sw.png){:.w100}
 
 http://caniuse.com/#feat=serviceworkers
+
+## Step 1. Check caniuse.com
+
+![placeholder](pictures/support-push.png){:.w100}
+
+http://caniuse.com/#feat=push-api
 
 ## Step 2. Check user agent support
 
@@ -229,7 +243,24 @@ http://caniuse.com/#feat=serviceworkers
   }
 ~~~
 
-## Step 3. Request permissions
+## Step 3. Create first service worker
+
+~~~ javascript
+// sw.js
+self.addEventListener('install', function(event) {
+    // Perform install steps
+});
+
+self.addEventListener('activate', function(event) {
+    // Activate
+}); 
+
+self.addEventListener('push', function(event) {
+  console.log('Push message received', event);
+});
+~~~
+
+## Step 4. Register Service Worker
 
 ~~~ javascript
 navigator.serviceWorker.register('/sw.js').then(function(registration) {
@@ -255,24 +286,31 @@ console.log('I am alive!');
 </script>
 <button onclick="swExample1(this)">Request permission</button>
 
-## Step 4. Support lifecycle
+## Step 5. Request API keys
+
+### https://console.cloud.google.com
+
+* Создаете проект
+* Активируете Google Cloud Messaging 
+* Создаете авторизационные ключи
+* Копируете код проекта
+
+## Step 6. Create manifest
 
 ~~~ javascript
-// sw.js
-self.addEventListener('install', function(event) {
-    // Perform install steps
-});
-
-self.addEventListener('activate', function(event) {
-    // Activate
-}); 
-
-self.addEventListener('push', function(event) {
-  console.log('Push message received', event);
-});
+// manifest.json
+{  
+  "name": "Push Demo",
+  "gcm_sender_id": "351923144723"
+}
 ~~~
 
-## Step 5. Communicate with Service Workers
+~~~ markup
+<!-- index.html -->
+<link rel="manifest" href="manifest.json">
+~~~
+
+## Step 7. Request push persmissions
 
 ~~~ javascript
 //...
@@ -292,7 +330,7 @@ self.addEventListener('push', function(event) {
     });
 ~~~
 
-## Step 6. Service worker
+## Step 8. Service worker
 
 ~~~ javascript
 self.addEventListener('push', function(event) {
@@ -304,15 +342,21 @@ self.addEventListener('push', function(event) {
 });
 ~~~
 
-## Step 7. Magick
+## Step 9. Magick
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
 
 <script type="text/javascript">
-    function swExample2(button) {        
-        Notification.requestPermission()
+    function swExample2(button) {   
+        var requestNotify = function() {
+            return new Promise(function(resolve) {
+                Notification.requestPermission(resolve)
+            });
+        }     
+
+        requestNotify()
             .then(function() {
                 navigator.serviceWorker.register('/notifications-presentation/sw.js')
             })
