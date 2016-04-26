@@ -343,3 +343,11 @@ self.addEventListener('push', function(event) {
 </script>
 <button onclick="swExample2(this)">Magick</button>
 <div id="magick"></div>
+
+<script>
+$('.highlight')
+    .removeClass('highlight')
+    .addClass('language-javascript')
+    .find('code')
+        .addClass(' language-javascript');
+</script>

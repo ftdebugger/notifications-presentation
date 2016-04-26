@@ -5,7 +5,8 @@
  */
 
 code[class*="language-"],
-pre[class*="language-"] {
+pre[class*="language-"],
+.highlight {
 	color: black;
 	text-shadow: 0 1px white;
 	font-family: Consolas, Monaco, 'Andale Mono', monospace;
@@ -44,7 +45,8 @@ code[class*="language-"]::selection, code[class*="language-"] ::selection {
 }
 
 /* Code blocks */
-pre[class*="language-"] {
+pre[class*="language-"],
+.highlight {
 	padding: 1em;
 	margin: .5em 0;
 	overflow: auto;

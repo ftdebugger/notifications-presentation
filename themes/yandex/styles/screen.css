@@ -1,4 +1,4 @@
-@import url('../../../bower_components/shower-bright/styles/screen.css');
+@import url('screen-s.css');
 @import url('fonts.css');
 
 body
@@ -599,11 +599,13 @@ body .slide:first-of-type h2
 
 /* Code */
 .slide code[class*='language-'],
-.slide pre[class*='language-']
+.slide pre[class*='language-'],
+.highlight,
+.highlight code
 {
     font-family: 'InputMono' !important;
-    font-size: 21px;
-    line-height: 1.2;
+    font-size: 21px !important;
+    line-height: 1.2 !important;
 }
 
 .slide pre[class*='language-']
